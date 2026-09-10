@@ -1,0 +1,104 @@
+[
+  {
+    "ticket_number": 1,
+    "status": "safe",
+    "emails": [
+      {
+        "value": "david.niyonzima@alueducation.com",
+        "category": "External / Personal"
+      },
+      {
+        "value": "d.niyonzima@alumni.alueducation.com",
+        "category": "ALU Alumni"
+      },
+      {
+        "value": "si-support@si.alueducation.com",
+        "category": "ALU SI (School of ...)"
+      }
+    ],
+    "credit_cards": [
+      {
+        "masked_value": "**** **** **** 0366",
+        "luhn_valid": true
+      },
+      {
+        "masked_value": "**** **** **** 2832",
+        "luhn_valid": true
+      }
+    ],
+    "phone_numbers": [
+      "+250 788 123 456",
+      "(078) 456-7890"
+    ],
+    "urls": [],
+    "hashtags": []
+  },
+  {
+    "ticket_number": 2,
+    "status": "safe",
+    "emails": [
+      {
+        "value": "grace.uwimana@gmail.com",
+        "category": "External / Personal"
+      }
+    ],
+    "credit_cards": [
+      {
+        "masked_value": "**** **** **** 0004",
+        "luhn_valid": true
+      }
+    ],
+    "phone_numbers": [],
+    "urls": [
+      "https://marketreview.rw/blog/farmers-app-2026",
+      "http://www.oldsite-example.com/reviews?id=88&ref=home"
+    ],
+    "hashtags": [
+      "#FarmTechRwanda",
+      "#SupportLocalFarmers"
+    ]
+  },
+  {
+    "ticket_number": 3,
+    "status": "rejected_unsafe_input",
+    "emails": [],
+    "credit_cards": [],
+    "phone_numbers": [],
+    "urls": [],
+    "hashtags": []
+  },
+  {
+    "ticket_number": 4,
+    "status": "safe",
+    "emails": [
+      {
+        "value": "eric.mugisha@alueducation.com",
+        "category": "ALU Official"
+      }
+    ],
+    "credit_cards": [],
+    "phone_numbers": [
+      "0788-990-112"
+    ],
+    "urls": [
+      "https://support.aluerp.com/tickets/new"
+    ],
+    "hashtags": []
+  },
+  {
+    "ticket_number": 5,
+    "status": "safe",
+    "emails": [
+      {
+        "value": "staff@alueducation.com",
+        "category": "ALU Official"
+      }
+    ],
+    "credit_cards": [],
+    "phone_numbers": [],
+    "urls": [],
+    "hashtags": [
+      "#Q3Report"
+    ]
+  }
+]
