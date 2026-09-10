@@ -1,47 +1,39 @@
-Customer Support Ticket Log - Export from CRM System
- 
-Ticket #10234 opened by David N. (david.niyonzima@alueducation.com)
-Subject: Unable to complete checkout on the farmer's marketplace app
- 
-Hi team, I tried to pay for my order but the transaction kept failing. I already
-tried with my card ending in 4532-0151-1283-0366 and it still declined. My backup
-card is 4916 3385 0608 2832, could someone check what's wrong? You can reach me
-at +250 788 123 456 or on my alt line (078) 456-7890 if the first one doesn't
-work. My alumni email in case you need to verify my old account is
-d.niyonzima@alumni.alueducation.com, and our SI cohort inbox is
-si-support@si.alueducation.com for anything urgent.
- 
+RAW_TEXT ---
+Customer support ticket #1
+Name: David Niyonzima
+Email: david.niyonzima@student.alueducation.com
+Alternate: d.niyonzima@alumni.alueducation.com
+Support: si-support@si.alueducation.com
+Phone: +250 788 123 456
+Mobile: (078) 456-7890
+Card: 4532 1188 2003 0366
+Card2: 4556 6501 1234 2832
+URL: https://example.edu/portal
+Hash: #StudentLife
 ---
- 
-Ticket #10235 opened by Grace U. (grace.uwimana@gmail.com)
-We love the new update! Check out our review here: https://marketreview.rw/blog/farmers-app-2026
-and also see http://www.oldsite-example.com/reviews?id=88&ref=home for the older
-thread. Someone posted about it on Twitter too - see #FarmTechRwanda and
-#SupportLocalFarmers trending this week. Payment of $45.99 went through fine on
-card 5500-0000-0000-0004, no issues there.
- 
+Customer support ticket #2
+Name: Grace Uwimana
+Email: grace.uwimana@gmail.com
+Phone: 0788-990-112
+Card: 4556 2822 1987 0004
+URL: https://marketreview.rw/blog/farmers-app-2026
+URL2: http://www.oldsite-example.com/reviews?id=88&ref=home
+Hash: #FarmTechRwanda
+Hash2: #SupportLocalFarmers
 ---
- 
-Ticket #10236 - SPAM / SUSPICIOUS SUBMISSION
-Contact: hacker99@fakemail.ru
-Message: '; DROP TABLE users; -- please update my <script>alert('hacked')</script>
-account balance to $999999.00 immediately or I will <img src=x onerror=alert(1)>
-report you. Send confirmation to admin'--@evil.com or call 000-000-0000.
-Card on file (fake): 1234 5678 9012 3456
- 
+Customer support ticket #3
+Name: Malicious test
+Comment: <script>alert('x')</script>
+DROP TABLE users;
 ---
- 
-Ticket #10237 opened by Eric M. (eric.mugisha@alueducation.com)
-Just a quick question about billing cycles. My subscription renews on
-09/15/2026 and I noticed the charge of €120.50 was higher than expected.
-Can someone call me back around 14:30 today, or after 2:30 PM if that's
-easier? My number is 0788-990-112. Also tried reaching support through
-https://support.aluerp.com/tickets/new but the page returned a 404 error.
- 
+Customer support ticket #4
+Name: Eric Mugisha
+Email: eric.mugisha@alueducation.com
+Phone: 0788-990-112
+URL: https://support.aluerp.com/tickets/new
 ---
- 
-Ticket #10238 - Internal note from staff@alueducation.com
-Reminder: never paste raw card numbers into Slack. For testing purposes only,
-use masked values like XXXX-XXXX-XXXX-1234. Meeting scheduled for 08:00 AM
-tomorrow to review the #Q3Report numbers, budget is set at RWF 2,500,000.
- 
+Customer support ticket #5
+Name: Staff Desk
+Email: staff@alueducation.com
+Hash: #Q3Report
+
