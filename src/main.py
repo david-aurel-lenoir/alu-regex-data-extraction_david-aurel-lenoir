@@ -8,12 +8,6 @@ def read_input_file(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         return file.read()
 def split_into_tickets(raw_text):
-    """
-    Our input file uses a line of dashes ('---') to separate one ticket
-    from the next. We split on that so we can look at each ticket one
-    at a time, which mimics how a real system would process one record
-    (one API response, one form submission, etc.) at a time.
-    """
     tickets = re.split(r"\n-{3,}\n", raw_text)
 return [t.strip() for t in tickets if t.strip()]
 
@@ -30,7 +24,6 @@ SUSPICIOUS_REGEX = re.compile("|".join(SUSPICIOUS_PATTERNS), re.IGNORECASE)
 
 
 def is_suspicious(text):
-    """Return True if the text contains any red-flag pattern."""
     return bool(SUSPICIOUS_REGEX.search(text))
 
 EMAIL_REGEX = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
@@ -41,7 +34,6 @@ ALU_SI_DOMAIN = re.compile(r"@si\.alueducation\.com$", re.IGNORECASE)
 
 
 def classify_email(email):
-    """Decide which category an email belongs to."""
     if ALU_ALUMNI_DOMAIN.search(email):
         return "ALU Alumni"
     if ALU_SI_DOMAIN.search(email):
@@ -54,12 +46,6 @@ CREDIT_CARD_REGEX = re.compile(r"\b(?:\d[ -]?){13,19}\b")
 
 
 def luhn_checksum(card_number):
-    """
-    The Luhn algorithm is the standard checksum used by real credit cards
-    to catch typos. We use it here to double-check that a number we matched
-    is at least *structurally* plausible as a real card, not just any
-    13-19 digit number (like a phone number or an ID).
-    """
     digits = [int(d) for d in card_number]
     digits.reverse()
     total = 0
@@ -73,10 +59,6 @@ def luhn_checksum(card_number):
 
 
 def mask_card(card_number):
-    """
-    SECURITY: we never expose a full card number in our output or logs.
-    We only keep the last 4 digits, matching real-world best practice.
-    """
     digits_only = re.sub(r"[ -]", "", card_number)
     return "**** **** **** " + digits_only[-4:]
 
@@ -95,14 +77,6 @@ HASHTAG_REGEX = re.compile(r"#[A-Za-z]\w*")
 
 
 def looks_like_phone_not_card(number_digits):
-    """
-    Some short digit groups can accidentally match both the phone and card
-    patterns. We only treat something as a credit card if it has 13-19
-    digits AND passes the Luhn check. Otherwise we leave it for the phone
-    regex to (maybe) pick up.
-    """
-    return len(number_digits) < 13 or len(number_digits) > 19
-
 def extract_from_ticket(ticket_text, ticket_index):
     result = {
         "ticket_number": ticket_index,
