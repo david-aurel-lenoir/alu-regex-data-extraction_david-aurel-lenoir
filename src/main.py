@@ -206,3 +206,23 @@ def save_json(all_results, output_path):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as file:
         json.dump(all_results, file, indent=2)
+
+def main():
+    input_path = os.path.join("input", "raw-text.txt")
+    output_path = os.path.join("output", "sample-output.json")
+
+    raw_text = read_input_file(input_path)
+    tickets = split_into_tickets(raw_text)
+
+    all_results = []
+    for index, ticket_text in enumerate(tickets, start=1):
+        extracted = extract_from_ticket(ticket_text, index)
+        all_results.append(extracted)
+
+    print_summary(all_results)
+    save_json(all_results, output_path)
+    print(f"\nFull structured results saved to: {output_path}")
+
+
+if __name__ == "__main__":
+    main()
