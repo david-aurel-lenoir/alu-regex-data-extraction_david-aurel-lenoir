@@ -154,3 +154,55 @@ def extract_from_ticket(ticket_text, ticket_index):
     result["hashtags"] = HASHTAG_REGEX.findall(ticket_text)
 
     return result
+
+def print_summary(all_results):
+    print("=" * 65)
+    print("DATA EXTRACTION SUMMARY")
+    print("=" * 65)
+
+    for ticket in all_results:
+        print(f"\nTicket #{ticket['ticket_number']}  -  Status: {ticket['status']}")
+
+        if ticket["status"] == "rejected_unsafe_input":
+            print("  This ticket was REJECTED because it contained suspicious")
+            print("  or potentially malicious content. No data was extracted.")
+            continue
+
+        if ticket["emails"]:
+            print("  Emails found:")
+            for e in ticket["emails"]:
+                print(f"    - {e['value']}  ({e['category']})")
+
+        if ticket["credit_cards"]:
+            print("  Credit cards found (masked for safety):")
+            for c in ticket["credit_cards"]:
+                print(f"    - {c['masked_value']}")
+
+        if ticket["phone_numbers"]:
+            print("  Phone numbers found:")
+            for p in ticket["phone_numbers"]:
+                print(f"    - {p}")
+
+        if ticket["urls"]:
+            print("  URLs found:")
+            for u in ticket["urls"]:
+                print(f"    - {u}")
+
+        if ticket["hashtags"]:
+            print("  Hashtags found:")
+            for h in ticket["hashtags"]:
+                print(f"    - {h}")
+
+    print("\n" + "=" * 65)
+    total_safe = sum(1 for t in all_results if t["status"] == "safe")
+    total_rejected = sum(1 for t in all_results if t["status"] != "safe")
+    print(f"Total tickets processed: {len(all_results)}")
+    print(f"Safe tickets: {total_safe}")
+    print(f"Rejected (unsafe) tickets: {total_rejected}")
+    print("=" * 65)
+
+
+def save_json(all_results, output_path):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as file:
+        json.dump(all_results, file, indent=2)
