@@ -1,4 +1,4 @@
-# Data Extraction & Secure Validation Assignment
+# Data Extraction and Secure Validation Assignment
 
 A small Python program that reads messy, real-world-style text.
 
@@ -15,20 +15,7 @@ A small Python program that reads messy, real-world-style text.
    - **URLs**.
    - **Hashtags**
 
-## Why the security step matters
-
-Text coming from a real API or a real user can never be trusted blindly.
-Someone could try to slip in a `<script>` tag or a fake SQL command hoping
-the system just "runs" it as-is. Before this program extracts anything
-from a ticket, it first scans that ticket for red-flag patterns (script
-tags, `DROP TABLE`, SQL comment markers, inline JS event handlers like
-`onerror=`). If any of those are found, **the whole ticket is rejected**
-and nothing is extracted from it — we don't try to "clean" it and use it
-anyway, because at that point we can no longer trust its structure.
-
-
-## How it works, step by step
-
+## How it works
 1. `read_input_file()` opens `input/raw-text.txt` and reads it as one
    big string.
 2. `split_into_tickets()` splits that string into separate tickets,
