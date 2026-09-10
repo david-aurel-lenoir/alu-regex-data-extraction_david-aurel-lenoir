@@ -102,3 +102,55 @@ def looks_like_phone_not_card(number_digits):
     regex to (maybe) pick up.
     """
     return len(number_digits) < 13 or len(number_digits) > 19
+
+def extract_from_ticket(ticket_text, ticket_index):
+    result = {
+        "ticket_number": ticket_index,
+        "status": "safe",
+        "emails": [],
+        "credit_cards": [],
+        "phone_numbers": [],
+        "urls": [],
+        "hashtags": [],
+    }
+
+    if is_suspicious(ticket_text):
+        result["status"] = "rejected_unsafe_input"
+        return result
+
+    # Emails
+    for email in EMAIL_REGEX.findall(ticket_text):
+        result["emails"].append({
+            "value": email,
+            "category": classify_email(email),
+        })
+
+    # Credit cards
+    text_without_cards = ticket_text
+    for match in CREDIT_CARD_REGEX.findall(ticket_text):
+        digits_only = re.sub(r"[ -]", "", match)
+        if looks_like_phone_not_card(digits_only):
+            continue
+        if luhn_checksum(digits_only):
+            result["credit_cards"].append({
+                "masked_value": mask_card(match),
+                "luhn_valid": True,
+            })
+
+            text_without_cards = text_without_cards.replace(match, " " * len(match))
+
+    # Phone numbers
+    for phone in PHONE_REGEX.findall(text_without_cards):
+        digits_only = re.sub(r"[^\d]", "", phone)
+        if 13 <= len(digits_only) <= 19:
+            continue
+        if len(digits_only) >= 7:
+            result["phone_numbers"].append(phone.strip())
+
+    # URLs
+    result["urls"] = URL_REGEX.findall(ticket_text)
+
+    # Hashtags
+    result["hashtags"] = HASHTAG_REGEX.findall(ticket_text)
+
+    return result
