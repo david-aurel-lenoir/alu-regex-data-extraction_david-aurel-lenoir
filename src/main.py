@@ -48,4 +48,57 @@ def classify_email(email):
         return "ALU SI (School of ...)"
     if ALU_OFFICIAL_DOMAIN.search(email):
         return "ALU Official"
-    return "External / Personal"
+return "External / Personal"
+
+CREDIT_CARD_REGEX = re.compile(r"\b(?:\d[ -]?){13,19}\b")
+
+
+def luhn_checksum(card_number):
+    """
+    The Luhn algorithm is the standard checksum used by real credit cards
+    to catch typos. We use it here to double-check that a number we matched
+    is at least *structurally* plausible as a real card, not just any
+    13-19 digit number (like a phone number or an ID).
+    """
+    digits = [int(d) for d in card_number]
+    digits.reverse()
+    total = 0
+    for i, d in enumerate(digits):
+        if i % 2 == 1:
+            d *= 2
+            if d > 9:
+                d -= 9
+        total += d
+    return total % 10 == 0
+
+
+def mask_card(card_number):
+    """
+    SECURITY: we never expose a full card number in our output or logs.
+    We only keep the last 4 digits, matching real-world best practice.
+    """
+    digits_only = re.sub(r"[ -]", "", card_number)
+    return "**** **** **** " + digits_only[-4:]
+
+
+# Phone Numbers
+
+PHONE_REGEX = re.compile(
+    r"(?:\+\d{1,3}[ -]?)?(?:\(\d{2,4}\)[ -]?)?\d{2,4}(?:[ -]\d{3,4}){1,3}"
+)
+
+# URLs
+URL_REGEX = re.compile(r"https?://[^\s)]+")
+
+# Hashtags
+HASHTAG_REGEX = re.compile(r"#[A-Za-z]\w*")
+
+
+def looks_like_phone_not_card(number_digits):
+    """
+    Some short digit groups can accidentally match both the phone and card
+    patterns. We only treat something as a credit card if it has 13-19
+    digits AND passes the Luhn check. Otherwise we leave it for the phone
+    regex to (maybe) pick up.
+    """
+    return len(number_digits) < 13 or len(number_digits) > 19
