@@ -45,7 +45,6 @@ Hash: #Q3Report
 # STEP 1: Read the raw input file
 
 def read_input_file(filepath):
-    """Open the raw text file and return its full contents as one big string."""
     if not os.path.exists(filepath):
         default_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "input", "raw-text.txt")
         if os.path.exists(default_path):
@@ -59,12 +58,7 @@ def read_input_file(filepath):
 # STEP 2: Spliting the big text into separate "tickets"
 
 def split_into_tickets(raw_text):
-    """
-    Our input file uses a line of dashes ('---') to separate one ticket
-    from the next. We split on that so we can look at each ticket one
-    at a time, which mimics how a real system would process one record
-    (one API response, one form submission, etc.) at a time.
-    """
+
     # The regex below matches a line made up of 3 or more dashes.
     tickets = re.split(r"\n-{3,}\n", raw_text)
     # Remove empty/whitespace-only chunks
@@ -103,7 +97,6 @@ ALU_SI_DOMAIN = re.compile(r"@si\.alueducation\.com$", re.IGNORECASE)
 
 
 def classify_email(email):
-    """Decide which category an email belongs to."""
     if ALU_ALUMNI_DOMAIN.search(email):
         return "ALU Alumni"
     if ALU_SI_DOMAIN.search(email):
@@ -118,12 +111,7 @@ CREDIT_CARD_REGEX = re.compile(r"\b(?:\d[ -]?){13,19}\b")
 
 
 def luhn_checksum(card_number):
-    """
-    The Luhn algorithm is the standard checksum used by real credit cards
-    to catch typos. We use it here to double-check that a number we matched
-    is at least *structurally* plausible as a real card, not just any
-    13-19 digit number (like a phone number or an ID).
-    """
+
     digits = [int(d) for d in card_number]
     digits.reverse()
     total = 0
@@ -137,10 +125,7 @@ def luhn_checksum(card_number):
 
 
 def mask_card(card_number):
-    """
-    SECURITY: we never expose a full card number in our output or logs.
-    We only keep the last 4 digits, matching real-world best practice.
-    """
+
     digits_only = re.sub(r"[ -]", "", card_number)
     return "**** **** **** " + digits_only[-4:]
 
@@ -160,12 +145,7 @@ HASHTAG_REGEX = re.compile(r"#[A-Za-z]\w*")
 # STEP 5: Extra validation helpers to avoid false positives
 
 def looks_like_phone_not_card(number_digits):
-    """
-    Some short digit groups can accidentally match both the phone and card
-    patterns. We only treat something as a credit card if it has 13-19
-    digits AND passes the Luhn check. Otherwise we leave it for the phone
-    regex to (maybe) pick up.
-    """
+
     return len(number_digits) < 13 or len(number_digits) > 19
 
 # STEP 6: Process a single ticket and pull out all the data types
