@@ -3,7 +3,7 @@ import json, os, re
 DEFAULT_RAW_TEXT = '''---
 Customer support ticket #1
 Name: David Niyonzima
-Email: david.niyonzima@alueducation.com
+Email: david.niyonzima@student.alueducation.com
 Alternate: d.niyonzima@alumni.alueducation.com
 Support: si-support@si.alueducation.com
 Phone: +250 788 123 456
